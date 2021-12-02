@@ -12,4 +12,9 @@ public class CameraManager : MonoBehaviour
     {
         Ins = this;
     }
+
+    public void DoShake()
+    {
+        
+    }
 }
