@@ -1,3 +1,4 @@
+using GameEventSystem;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
         spriteRender.sprite = hitSprite;
         StartCoroutine(RemoveSpriteHit());
         StartCoroutine(RemoveImmune());
+
+        GameEventManager.TriggerEvent(GameEvents.ON_PLAYER_DAMAGE);
     }
 
     private IEnumerator RemoveImmune()
