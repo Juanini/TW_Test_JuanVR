@@ -45,14 +45,10 @@ public class EnemiesManager : MonoBehaviour
     // * =====================================================================================================================================
     // * SHOOT
 
-    private IEnumerator EnemyShootDelay()
-    {
-        yield return enemyShootWait;
-        EnemyShoot();
-    }
-
     public void EnemyShoot()
     {
+        if(LevelManager.Ins.IsGameOver) { return; }
+
         int randomColum, randomRow;
         randomColum = Random.Range(0, enemiesContainer.enemyRowList.Count);
         randomRow = Random.Range(0, enemiesContainer.enemyRowList[randomColum].enemyList.Count);

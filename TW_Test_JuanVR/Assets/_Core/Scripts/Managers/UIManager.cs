@@ -6,10 +6,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Ins;
+
+    [BoxGroup("UI")]
+    public Button pauseButton; 
 
     [BoxGroup("Lifes")]
     public GameObject lifeContainer;
@@ -36,6 +40,8 @@ public class UIManager : MonoBehaviour
         Ins = this;
         SetupEvents();    
         SetupMenus();
+
+        pauseButton.onClick.AddListener(OnPauseClick);
     }
 
     void OnDestroy() 
@@ -52,6 +58,8 @@ public class UIManager : MonoBehaviour
         menuDict.Add(GameConstants.MENU_MAIN,       "MainMenu");
         menuDict.Add(GameConstants.MENU_CREDITS,    "CreaditsMenu");
         menuDict.Add(GameConstants.MENU_END_GAME,   "EndMenu");
+        menuDict.Add(GameConstants.MENU_PAUSE,      "PauseMenu");
+        menuDict.Add(GameConstants.MENU_COMPLETE,   "LevelCompleteMenu");
 
         MenuManager.Ins.CreateMenuDic(menuDict);
     }
@@ -105,6 +113,7 @@ public class UIManager : MonoBehaviour
     {
         scoreContainer.gameObject.SetActive(true);
         lifeContainer.gameObject.SetActive(true);
+        pauseButton.gameObject.SetActive(true);
 
         #if !UNITY_EDITOR
         ShowTouchControls();
@@ -158,6 +167,14 @@ public class UIManager : MonoBehaviour
         if(gameOverShown) { return; }
         gameOverShown = true;
         MenuManager.Ins.ShowMenu(GameConstants.MENU_END_GAME);
+    }
+
+    // * =====================================================================================================================================
+    // * PAUSE
+
+    public void OnPauseClick()
+    {
+        MenuManager.Ins.ShowMenu(GameConstants.MENU_PAUSE);
     }
 
     // * =====================================================================================================================================

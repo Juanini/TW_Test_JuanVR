@@ -3014,6 +3014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d95335181df31bb448635c752ccee6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseButton: {fileID: 1038374831}
   lifeContainer: {fileID: 1872322474}
   lifeList:
   - {fileID: 645165916}
@@ -5041,7 +5042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 675306292}
-  movementSpeed: 10
+  movementSpeed: 6
 --- !u!61 &1640770012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6293,6 +6294,7 @@ MonoBehaviour:
   - {fileID: 2101231412}
   - {fileID: 1852947180}
   - {fileID: 1850776710}
+  blockPlayerMovement: 0
 --- !u!1001 &2066838990
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.Ins.blockPlayerMovement) { return; }
+        
         Move();
     }
 
@@ -32,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move()
     {
+        if (LevelManager.Ins.blockPlayerMovement) { return; }
+
         #if UNITY_EDITOR || UNITY_STANDALONE
         horizontalVal = Input.GetAxis("Horizontal");
         #elif UNITY_IOS || UNITY_ANDROID

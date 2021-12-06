@@ -33,6 +33,8 @@ public class GameConstants : MonoBehaviour
     public static int MENU_MAIN     = 0;
     public static int MENU_CREDITS  = 1;
     public static int MENU_END_GAME = 2;
+    public static int MENU_PAUSE    = 3;
+    public static int MENU_COMPLETE = 4;
 
     // UX
     public static float FADE_TIME = 0.85f;

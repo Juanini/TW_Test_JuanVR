@@ -12,4 +12,6 @@ public class GameEvents
     public static string ON_ENEMY_DEAD = "ENEMY_DEAD";
     public static string ON_GAME_OVER = "ON_GAME_OVER";
 
+    public static string ON_LEVEL_COMPLETE = "ON_LEVEL_COMPLETE";
+
 }

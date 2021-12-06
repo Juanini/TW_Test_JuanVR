@@ -26,6 +26,8 @@ public class PlayerWeapons : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.Ins.blockPlayerMovement) { return; }
+        
         #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
