@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Bullet
+  - GameOverCollider
   layers:
   - Default
   - TransparentFX
