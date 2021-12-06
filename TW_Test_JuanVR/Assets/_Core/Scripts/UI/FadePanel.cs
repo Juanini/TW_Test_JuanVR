@@ -18,13 +18,13 @@ public class FadePanel : MonoBehaviour
         Ins = this;    
     }
 
-    public void FadeIn(UnityAction _callback = null, float _fadeTime = 0.85f)
+    public void FadeIn(UnityAction _callback = null, float _fadeTime = 0.65f)
     {
         callback = _callback;
         fadeImage.DOFade(1, _fadeTime).OnComplete(()=> callback?.Invoke());
     }
 
-    public void FadeOut(UnityAction _callback = null, float _fadeTime = 0.85f)
+    public void FadeOut(UnityAction _callback = null, float _fadeTime = 0.65f)
     {
         callback = _callback;
         fadeImage.DOFade(0, _fadeTime).OnComplete(()=> callback?.Invoke());

@@ -26,10 +26,19 @@ public class PlayerWeapons : MonoBehaviour
 
     void Update()
     {
+        #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             Shoot();    
         }        
+        #endif
+
+        #if UNITY_IOS || UNITY_ANDROID
+        if (shoot)
+        {
+            Shoot();
+        }
+        #endif
     }
 
     public void Shoot()
@@ -52,5 +61,20 @@ public class PlayerWeapons : MonoBehaviour
     {
         yield return timeToShoot;
         canShoot = true;
+    }
+
+    // * =====================================================================================================================================
+    // * TOUCH
+
+    private bool shoot = false;
+
+    public void OnShootPointerDown()
+    {
+        shoot = true;
+    }
+
+    public void OnShootPointerUp()
+    {
+        shoot = false;
     }
 }

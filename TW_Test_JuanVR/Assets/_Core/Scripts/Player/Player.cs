@@ -35,6 +35,12 @@ public class Player : MonoBehaviour
     // * =====================================================================================================================================
     // * Damage
 
+    void OnTriggerEnter2D(Collider2D _other) 
+    {
+        if(_other.tag != GameConstants.TAG_ENEMY_BULLET) { return; }
+        OnDamage(1);
+    }
+
     [Button(ButtonSizes.Large), GUIColor(0.4f, 0.8f, 1)]
     private void OnDamage(int _damage)
     {

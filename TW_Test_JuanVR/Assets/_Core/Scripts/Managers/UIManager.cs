@@ -24,6 +24,11 @@ public class UIManager : MonoBehaviour
     [BoxGroup("UX")]
     public TextMeshProUGUI levelCounterText;
 
+    [BoxGroup("Touch Controls")]
+    public GameObject touchControls;
+    [BoxGroup("Touch Controls")]
+    public GameObject joystick;
+
     private Dictionary<int, string> menuDict;
 
     void Awake()
@@ -101,8 +106,18 @@ public class UIManager : MonoBehaviour
         scoreContainer.gameObject.SetActive(true);
         lifeContainer.gameObject.SetActive(true);
 
+        #if !UNITY_EDITOR
+        ShowTouchControls();
+        #endif
+
         DoLevelCounter();
         scoreText.gameObject.SetActive(true);
+    }
+
+    public void ShowTouchControls()
+    {
+        touchControls.gameObject.SetActive(true);
+        joystick.gameObject.SetActive(true);
     }
 
     private int levelCounteriter = 3;

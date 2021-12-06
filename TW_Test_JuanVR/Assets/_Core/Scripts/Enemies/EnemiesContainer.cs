@@ -8,7 +8,7 @@ public class EnemiesContainer : MonoBehaviour
 
     void Start() 
     {
-        InvokeRepeating("Move", 5, 0.5f);
+        InvokeRepeating("Move", 5, 1.5f);
     }
 
     public void Move()

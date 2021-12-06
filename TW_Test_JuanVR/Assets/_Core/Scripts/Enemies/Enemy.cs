@@ -50,9 +50,11 @@ public class Enemy : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-
+        GameObject bullet = EnemiesManager.Ins.bulletPool.GetPooledObject();
+        bullet.gameObject.SetActive(true);
+        bullet.transform.position = shootingPos.transform.position;
     }
 
     // * =====================================================================================================================================

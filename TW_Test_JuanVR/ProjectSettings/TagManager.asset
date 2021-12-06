@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Bullet
   - GameOverCollider
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
@@ -52,6 +53,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1407275699
+    locked: 0
+  - name: VFX
+    uniqueID: 2723815581
     locked: 0
   - name: UI
     uniqueID: 2738052537

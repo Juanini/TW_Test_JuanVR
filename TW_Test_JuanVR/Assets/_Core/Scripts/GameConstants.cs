@@ -18,6 +18,7 @@ public class GameConstants : MonoBehaviour
     // TAGS
 
     public static string TAG_ENEMY  = "Enemy";
+    public static string TAG_ENEMY_BULLET  = "EnemyBullet";
     public static string TAG_PLAYER = "Player";
     public static string TAG_BULLET = "Bullet";
     public static string TAG_GAME_OVER_COLLIDER = "GameOverCollider";

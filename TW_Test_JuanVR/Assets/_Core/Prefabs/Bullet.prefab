@@ -156,6 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   disableTime: 1.8
+  colliderTag: Enemy
 --- !u!50 &4716356881632396003
 Rigidbody2D:
   serializedVersion: 4

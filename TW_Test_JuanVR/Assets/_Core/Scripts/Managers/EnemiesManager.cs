@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,15 +6,27 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
+    public static EnemiesManager Ins;
+
     public EnemiesContainer enemiesContainer;
 
+    [BoxGroup("Elements")]
+    public Pool bulletPool;
+
+    [BoxGroup("DATA")]
     public EnemyData enemyDataGreen;
+    [BoxGroup("DATA")]
     public EnemyData enemyDataBlue;
+    [BoxGroup("DATA")]
     public EnemyData enemyDataRed;
+
+    private WaitForSeconds enemyShootWait;
 
     void Awake() 
     {
+        Ins = this;
         SetupEvents();    
+        bulletPool.InitPool();
     }
 
     void OnDestroy() 
@@ -25,14 +38,26 @@ public class EnemiesManager : MonoBehaviour
     {
         enemiesContainer.gameObject.SetActive(true);
         SetEnemiesRandom();
+
+        InvokeRepeating("EnemyShoot", 5, 2);
     }
 
     // * =====================================================================================================================================
     // * SHOOT
 
+    private IEnumerator EnemyShootDelay()
+    {
+        yield return enemyShootWait;
+        EnemyShoot();
+    }
+
     public void EnemyShoot()
     {
+        int randomColum, randomRow;
+        randomColum = Random.Range(0, enemiesContainer.enemyRowList.Count);
+        randomRow = Random.Range(0, enemiesContainer.enemyRowList[randomColum].enemyList.Count);
 
+        enemiesContainer.enemyRowList[randomColum].enemyList[randomRow].Shoot();
     }
 
     // * =====================================================================================================================================
