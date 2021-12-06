@@ -26,10 +26,21 @@ public class PlayerWeapons : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (LevelManager.Ins.blockPlayerMovement) { return; }
+        
+        #if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             Shoot();    
         }        
+        #endif
+
+        #if UNITY_IOS || UNITY_ANDROID
+        if (shoot)
+        {
+            Shoot();
+        }
+        #endif
     }
 
     public void Shoot()
@@ -39,6 +50,9 @@ public class PlayerWeapons : MonoBehaviour
         canShoot = false;
 
         GameObject bulletObj = bulletsPool.GetPooledObject();
+
+        if(bulletObj == null) { return; }
+        
         bulletObj.transform.position = shootingPos.transform.position;
         bulletObj.gameObject.SetActive(true);
 
@@ -49,5 +63,20 @@ public class PlayerWeapons : MonoBehaviour
     {
         yield return timeToShoot;
         canShoot = true;
+    }
+
+    // * =====================================================================================================================================
+    // * TOUCH
+
+    private bool shoot = false;
+
+    public void OnShootPointerDown()
+    {
+        shoot = true;
+    }
+
+    public void OnShootPointerUp()
+    {
+        shoot = false;
     }
 }

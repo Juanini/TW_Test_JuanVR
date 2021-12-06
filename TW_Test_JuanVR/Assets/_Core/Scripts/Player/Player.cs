@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private WaitForSeconds immuneTimeWait;
     private WaitForSeconds hitSpriteWait;
 
-    void Awake() 
+    void Awake()
     {
         InitComponents();
         immuneTimeWait = new WaitForSeconds(immuneTime);
@@ -35,18 +35,32 @@ public class Player : MonoBehaviour
     // * =====================================================================================================================================
     // * Damage
 
+    void OnTriggerEnter2D(Collider2D _other) 
+    {
+        if(_other.tag != GameConstants.TAG_ENEMY_BULLET) { return; }
+        OnDamage(1);
+    }
+
     [Button(ButtonSizes.Large), GUIColor(0.4f, 0.8f, 1)]
     private void OnDamage(int _damage)
     {
         if(isImmune) { return; }
-        
         isImmune = true;
 
-        spriteRender.sprite = hitSprite;
-        StartCoroutine(RemoveSpriteHit());
-        StartCoroutine(RemoveImmune());
+        lifes--;
 
-        GameEventManager.TriggerEvent(GameEvents.ON_PLAYER_DAMAGE);
+        if(lifes <= 0 )
+        {
+            GameEventManager.TriggerEvent(GameEvents.ON_GAME_OVER);
+        }
+        else
+        {
+            spriteRender.sprite = hitSprite;
+            StartCoroutine(RemoveSpriteHit());
+            StartCoroutine(RemoveImmune());
+
+            GameEventManager.TriggerEvent(GameEvents.ON_PLAYER_DAMAGE);    
+        }
     }
 
     private IEnumerator RemoveImmune()

@@ -9,11 +9,17 @@ public class Bullet : MonoBehaviour
 
     [BoxGroup("Properties")]
     public float speed;
+    [BoxGroup("Properties")]
     public float disableTime;
+    [BoxGroup("Properties")]
+    public string colliderTag;
+
+    private WaitForSeconds disableWait;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();    
+        disableWait = new WaitForSeconds(disableTime);
     }
 
     void OnEnable() 
@@ -34,14 +40,13 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator DisableDelay()
     {
-        yield return new WaitForSeconds(disableTime);
+        yield return disableWait;
         DisableBullet();
     }
 
     private void OnTriggerEnter2D(Collider2D _other) 
     {
-        if(_other.tag != GameConstants.TAG_ENEMY) { return; }
-
+        if(_other.tag != colliderTag) { return; }
         DisableBullet();
     }
 
