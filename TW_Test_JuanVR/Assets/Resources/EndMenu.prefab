@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   retryButton: {fileID: 1772317671250274232}
   mainMenuButton: {fileID: 1772317671699985931}
+  scoreText: {fileID: 1772317672104921165}
 --- !u!114 &1772317670771247947
 MonoBehaviour:
   m_ObjectHideFlags: 0

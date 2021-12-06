@@ -18,6 +18,11 @@ public class FadePanel : MonoBehaviour
         Ins = this;    
     }
 
+    public void SetBack()
+    {
+        fadeImage.color = new Color(0, 0, 0, 1);
+    }
+
     public void FadeIn(UnityAction _callback = null, float _fadeTime = 0.65f)
     {
         callback = _callback;

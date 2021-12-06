@@ -22,10 +22,13 @@ public class EnemiesManager : MonoBehaviour
 
     private WaitForSeconds enemyShootWait;
 
+    private List<Enemy> enemyList;
+
     void Awake() 
     {
         Ins = this;
-        SetupEvents();    
+        SetupEvents();
+        SetEnemies();    
         bulletPool.InitPool();
     }
 
@@ -38,8 +41,29 @@ public class EnemiesManager : MonoBehaviour
     {
         enemiesContainer.gameObject.SetActive(true);
         SetEnemiesRandom();
+    }
 
-        InvokeRepeating("EnemyShoot", 5, 2);
+    private void OnLevelCounterEnd(Hashtable _ht)
+    {
+        InvokeRepeating("EnemyShoot", 0, LevelManager.Ins.levelActive.enemyShootTime);
+    }
+
+    // * =====================================================================================================================================
+    // * 
+
+    private void OnEnemyDead(Hashtable _ht)
+    {
+        enemyList.Remove((Enemy)_ht[GameEventParam.ENEMY_REF]);
+
+        if (enemyList.Count <= 0)
+        {
+            Invoke("EndLevelDelay", 2f);
+        }
+    }
+
+    private void EndLevelDelay()
+    {
+        GameEventManager.TriggerEvent(GameEvents.ON_LEVEL_COMPLETE);
     }
 
     // * =====================================================================================================================================
@@ -48,12 +72,12 @@ public class EnemiesManager : MonoBehaviour
     public void EnemyShoot()
     {
         if(LevelManager.Ins.IsGameOver) { return; }
+        if(enemyList.Count <= 0) { return; }
 
-        int randomColum, randomRow;
-        randomColum = Random.Range(0, enemiesContainer.enemyRowList.Count);
-        randomRow = Random.Range(0, enemiesContainer.enemyRowList[randomColum].enemyList.Count);
+        int randomPos;
+        randomPos = Random.Range(0, enemyList.Count);
+        enemyList[randomPos].Shoot();
 
-        enemiesContainer.enemyRowList[randomColum].enemyList[randomRow].Shoot();
     }
 
     // * =====================================================================================================================================
@@ -79,20 +103,34 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
+    public void SetEnemies()
+    {
+        enemyList = new List<Enemy>();
+
+        for (int i = 0; i < enemiesContainer.enemyRowList.Count; i++)
+        {
+            for (int j = 0; j < enemiesContainer.enemyRowList[i].enemyList.Count; j++)
+            {
+                enemyList.Add(enemiesContainer.enemyRowList[i].enemyList[j]);
+                enemiesContainer.enemyRowList[i].enemyList[j].posInList = enemyList.Count - 1;
+            }
+        }
+    }
+
     // * =====================================================================================================================================
     // * Events
 
     private void SetupEvents()
     {
-        // GameEventManager.StartListening(GameEvents.ON_ENEMY_DEAD, OnEnemyDead);
-        // GameEventManager.StartListening(GameEvents.ON_GAME_OVER, OnGameOver);
+        GameEventManager.StartListening(GameEvents.ON_ENEMY_DEAD, OnEnemyDead);
         GameEventManager.StartListening(GameEvents.ON_LAYOUT_SELECT, LayoutSelected);
+        GameEventManager.StartListening(GameEvents.ON_LEVEL_COUNTER_END, OnLevelCounterEnd);
     }
 
     private void DestroyEvents()
     {
-        // GameEventManager.StopListening(GameEvents.ON_ENEMY_DEAD, OnEnemyDead);
-        // GameEventManager.StopListening(GameEvents.ON_GAME_OVER, OnGameOver);
+        GameEventManager.StopListening(GameEvents.ON_ENEMY_DEAD, OnEnemyDead);
+        GameEventManager.StopListening(GameEvents.ON_LEVEL_COUNTER_END, OnLevelCounterEnd);
         GameEventManager.StopListening(GameEvents.ON_LAYOUT_SELECT, LayoutSelected);
     }
 }

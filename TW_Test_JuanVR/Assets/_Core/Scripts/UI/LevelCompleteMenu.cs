@@ -13,7 +13,6 @@ public class LevelCompleteMenu : MenuBase
     private float scoreTemp = 0;
 
     private Tween scoreMovementTween;
-
     private Vector3 punchPosVector = new Vector3(0, 10, 0);
 
     void Start()

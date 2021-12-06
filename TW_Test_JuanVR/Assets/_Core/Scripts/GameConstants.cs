@@ -25,8 +25,8 @@ public class GameConstants : MonoBehaviour
 
     // LAYOUTS
 
-    public static int LAYOUT_1  = 1;
-    public static int LAYOUT_2  = 2;
+    public const int LAYOUT_1  = 1;
+    public const int LAYOUT_2  = 2;
 
     // MENUS
 

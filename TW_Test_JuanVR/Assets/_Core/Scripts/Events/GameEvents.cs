@@ -13,5 +13,6 @@ public class GameEvents
     public static string ON_GAME_OVER = "ON_GAME_OVER";
 
     public static string ON_LEVEL_COMPLETE = "ON_LEVEL_COMPLETE";
+    public static string ON_LEVEL_COUNTER_END = "ON_LEVEL_COUNTER_END";
 
 }

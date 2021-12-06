@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: daf6da5443f4c1645a12c9f0dab3e5f3, type: 3}
-  m_Name: LevelData
+  m_Name: Layout2
   m_EditorClassIdentifier: 
-  background: {fileID: 0}
-  enemyMoveTime: 0
+  background: {fileID: 5280773312573586069, guid: f8f924cd6fa919d4bae5871af099adff, type: 3}
+  enemyMoveDownTime: 3.5
+  enemyShootTime: 1

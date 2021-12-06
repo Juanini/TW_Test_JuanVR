@@ -6,6 +6,7 @@ public class GameEventParam
     // ENEMY
 
     public static string ENEMY_POS = "ENEMY_POS";
+    public static string ENEMY_REF = "ENEMY_REF";
     public static string ENEMY_POINTS = "ENEMY_POINTS";
     public static string ENEMY_DATA = "ENEMY_DATA";
 

@@ -1,3 +1,4 @@
+using GameEventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,19 @@ public class EnemiesContainer : MonoBehaviour
 {
     public List<EnemyRow> enemyRowList;
 
-    void Start() 
+    void Awake() 
     {
-        InvokeRepeating("Move", 5, 1.5f);
+        GameEventManager.StartListening(GameEvents.ON_LEVEL_COUNTER_END, StartMovement);
+    }
+
+    void OnDestroy() 
+    {
+        GameEventManager.StopListening(GameEvents.ON_LEVEL_COUNTER_END, StartMovement);
+    }
+
+    private void StartMovement(Hashtable _ht)
+    {
+        InvokeRepeating("Move", 0, LevelManager.Ins.levelActive.enemyMoveDownTime);
     }
 
     public void Move()

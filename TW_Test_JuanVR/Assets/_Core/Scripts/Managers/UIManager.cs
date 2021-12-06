@@ -149,6 +149,8 @@ public class UIManager : MonoBehaviour
             levelCounterText.transform.DOPunchScale(new Vector3(0.35f, 0.35f, 0.35f), 0.4f);
             
             Invoke("HideCounter", 1);
+
+            GameEventManager.TriggerEvent(GameEvents.ON_LEVEL_COUNTER_END);
         }
     }
 

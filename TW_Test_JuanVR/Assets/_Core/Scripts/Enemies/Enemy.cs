@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     private bool isImmune = false;
     private bool isDead = false;
 
+    public int posInList = -1;
+
     void Awake() 
     {
         InitComponents();    
@@ -130,6 +132,7 @@ public class Enemy : MonoBehaviour
         Hashtable ht = new Hashtable();
         ht.Add(GameEventParam.ENEMY_POS, transform.position);
         ht.Add(GameEventParam.ENEMY_POINTS, points);
+        ht.Add(GameEventParam.ENEMY_REF, this);
         GameEventManager.TriggerEvent(GameEvents.ON_ENEMY_DEAD, ht);
     }
 }

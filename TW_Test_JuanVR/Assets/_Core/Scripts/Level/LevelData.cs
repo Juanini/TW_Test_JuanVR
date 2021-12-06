@@ -6,6 +6,7 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     public GameObject background;
-    public float enemyMoveTime;
+    public float enemyMoveDownTime;
+    public float enemyShootTime;
     
 }
