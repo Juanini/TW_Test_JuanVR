@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private WaitForSeconds immuneTimeWait;
     private WaitForSeconds hitSpriteWait;
 
-    void Awake() 
+    void Awake()
     {
         InitComponents();
         immuneTimeWait = new WaitForSeconds(immuneTime);

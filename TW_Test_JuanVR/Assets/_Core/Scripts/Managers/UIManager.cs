@@ -1,3 +1,5 @@
+using DG.Tweening;
+using TMPro;
 using GameEventSystem;
 using Sirenix.OdinInspector;
 using System;
@@ -9,17 +11,54 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Ins;
 
+    [BoxGroup("Lifes")]
+    public GameObject lifeContainer;
+    [BoxGroup("Lifes")]
     public List<LifeUI> lifeList;
+
+    [BoxGroup("Score")]
+    public GameObject scoreContainer;
+    [BoxGroup("Score")]
+    public TextMeshProUGUI scoreText;
+
+    [BoxGroup("UX")]
+    public TextMeshProUGUI levelCounterText;
+
+    private Dictionary<int, string> menuDict;
 
     void Awake()
     {
         Ins = this;
         SetupEvents();    
+        SetupMenus();
     }
 
     void OnDestroy() 
     {
         DestroyEvents();    
+    }
+
+    // * =====================================================================================================================================
+    // * 
+
+    private void SetupMenus()
+    {
+        menuDict = new Dictionary<int, string>();
+        menuDict.Add(GameConstants.MENU_MAIN,       "MainMenu");
+        menuDict.Add(GameConstants.MENU_CREDITS,    "CreaditsMenu");
+        menuDict.Add(GameConstants.MENU_END_GAME,   "EndMenu");
+
+        MenuManager.Ins.CreateMenuDic(menuDict);
+    }
+
+    // * =====================================================================================================================================
+    // * SCORE
+
+    Tween scoreTween;
+
+    public void AddScore(int _score)
+    {
+        
     }
 
     // * =====================================================================================================================================
@@ -55,16 +94,72 @@ public class UIManager : MonoBehaviour
     }
 
     // * =====================================================================================================================================
+    // * LEVEL COUNTER
+
+    public void LayoutSelected(Hashtable _ht)
+    {
+        scoreContainer.gameObject.SetActive(true);
+        lifeContainer.gameObject.SetActive(true);
+
+        DoLevelCounter();
+        scoreText.gameObject.SetActive(true);
+    }
+
+    private int levelCounteriter = 3;
+
+    private void DoLevelCounter()
+    {
+        if (levelCounteriter > 0)
+        {
+            levelCounterText.gameObject.SetActive(true);
+            
+            levelCounterText.text = levelCounteriter.ToString();
+            levelCounterText.transform.DOPunchScale(new Vector3(0.35f, 0.35f, 0.35f), 0.4f);
+
+            levelCounteriter--;    
+            Invoke("DoLevelCounter", 1);
+        }
+        else
+        {
+            levelCounterText.text = "GO!";
+            levelCounterText.transform.DOPunchScale(new Vector3(0.35f, 0.35f, 0.35f), 0.4f);
+            
+            Invoke("HideCounter", 1);
+        }
+    }
+
+    private void HideCounter()
+    {
+        levelCounterText.gameObject.SetActive(false);
+    }
+
+    // * =====================================================================================================================================
+    // * GAME OVER
+
+    private bool gameOverShown = false;
+
+    public void OnGameOver(Hashtable _ht)
+    {
+        if(gameOverShown) { return; }
+        gameOverShown = true;
+        MenuManager.Ins.ShowMenu(GameConstants.MENU_END_GAME);
+    }
+
+    // * =====================================================================================================================================
     // * Events
 
     private void SetupEvents()
     {
         GameEventManager.StartListening(GameEvents.ON_PLAYER_DAMAGE, OnPlayerDamage);
+        GameEventManager.StartListening(GameEvents.ON_GAME_OVER, OnGameOver);
+        GameEventManager.StartListening(GameEvents.ON_LAYOUT_SELECT, LayoutSelected);
+
     }
 
     private void DestroyEvents()
     {
         GameEventManager.StopListening(GameEvents.ON_PLAYER_DAMAGE, OnPlayerDamage);
-
+        GameEventManager.StopListening(GameEvents.ON_GAME_OVER, OnGameOver);
+        GameEventManager.StopListening(GameEvents.ON_LAYOUT_SELECT, LayoutSelected);
     }
 }

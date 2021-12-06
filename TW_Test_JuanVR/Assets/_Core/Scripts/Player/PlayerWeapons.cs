@@ -26,7 +26,7 @@ public class PlayerWeapons : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             Shoot();    
         }        
@@ -39,6 +39,9 @@ public class PlayerWeapons : MonoBehaviour
         canShoot = false;
 
         GameObject bulletObj = bulletsPool.GetPooledObject();
+
+        if(bulletObj == null) { return; }
+        
         bulletObj.transform.position = shootingPos.transform.position;
         bulletObj.gameObject.SetActive(true);
 
