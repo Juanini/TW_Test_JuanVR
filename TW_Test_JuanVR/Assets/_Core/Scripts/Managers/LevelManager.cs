@@ -27,6 +27,10 @@ public class LevelManager : MonoBehaviour
 
     [BoxGroup("SCORE")]
     public List<PointsUI> pointsUIPool;
+    [BoxGroup("SCORE")]
+    public Transform multiplier3Pos;
+    [BoxGroup("SCORE")]
+    public Transform multiplier2Pos;
 
     [HideInInspector]
     public bool blockPlayerMovement = false;
@@ -132,6 +136,21 @@ public class LevelManager : MonoBehaviour
 
     private int ScoreMultiplier()
     {
+        Trace.Log("Multiplier " + enemyContainer.transform.position.y + " | " + multiplier3Pos.position.y);
+        Trace.Log("Multiplier " +enemyContainer.transform.position.y + " | " + multiplier2Pos.position.y);
+
+        if(enemyContainer.transform.position.y >= multiplier3Pos.position.y)
+        {
+            Trace.Log("Multiplier 3");
+            return 3;
+        }
+        else if(enemyContainer.transform.position.y >= multiplier2Pos.position.y)
+        {
+            Trace.Log("Multiplier 2");
+            return 2;
+        }
+        
+        Trace.Log("Multiplier 1");
         return 1;
     }
 
@@ -145,8 +164,9 @@ public class LevelManager : MonoBehaviour
             if (!pointsUIPool[i].gameObject.activeInHierarchy)
             {
                 pointsUIPool[i].gameObject.SetActive(true);
-                pointsUIPool[i].AddPoints((int)_ht[GameEventParam.ENEMY_POINTS], 
-                                         (Vector3)_ht[GameEventParam.ENEMY_POS]);
+                pointsUIPool[i].AddPoints((int)_ht[GameEventParam.ENEMY_POINTS]  * ScoreMultiplier(), 
+                                         (Vector3)_ht[GameEventParam.ENEMY_POS],
+                                         ScoreMultiplier());
                 break;
             }
         }

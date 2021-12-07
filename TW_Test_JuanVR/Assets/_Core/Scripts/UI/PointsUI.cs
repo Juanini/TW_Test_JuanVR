@@ -7,6 +7,7 @@ using TMPro;
 public class PointsUI : MonoBehaviour
 {
     public TextMeshPro textMesh;
+    public TextMeshPro textMeshMultiplier;
 
     private WaitForSeconds jumpWait;
     private int points;
@@ -16,10 +17,20 @@ public class PointsUI : MonoBehaviour
         jumpWait = new WaitForSeconds(1.85f);
     }
 
-    public void AddPoints(int _points, Vector2 _startPosition)
+    public void AddPoints(int _points, Vector2 _startPosition, int _multiplier)
     {
         points = _points;
         textMesh.text = "+" + points.ToString("00");
+
+        if(_multiplier > 1)
+        {
+            textMeshMultiplier.gameObject.SetActive(true);
+            textMeshMultiplier.text = "multi X" +_multiplier;
+        }
+        else
+        {
+            textMeshMultiplier.gameObject.SetActive(false);
+        }
 
         transform.position = _startPosition;
         transform.DOPunchScale(new Vector2(0.2f, 0.2f), 0.2f);
