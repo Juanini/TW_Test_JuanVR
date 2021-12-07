@@ -22,6 +22,7 @@ public class GameConstants : MonoBehaviour
     public static string TAG_PLAYER = "Player";
     public static string TAG_BULLET = "Bullet";
     public static string TAG_GAME_OVER_COLLIDER = "GameOverCollider";
+    public static string TAG_POWER_UP = "PowerUp";
 
     // LAYOUTS
 

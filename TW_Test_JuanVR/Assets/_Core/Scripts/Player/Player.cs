@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public PlayerWeapons playerWeapons;
+
     public Sprite hitSprite;
     public Sprite normalSprite;
 
@@ -37,8 +39,14 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D _other) 
     {
-        if(_other.tag != GameConstants.TAG_ENEMY_BULLET) { return; }
-        OnDamage(1);
+        if(_other.tag == GameConstants.TAG_ENEMY_BULLET) 
+        { 
+            OnDamage(1);
+        } 
+        else if(_other.tag == GameConstants.TAG_POWER_UP) 
+        {
+            playerWeapons.ActivatePowerUp();
+        }
     }
 
     [Button(ButtonSizes.Large), GUIColor(0.4f, 0.8f, 1)]

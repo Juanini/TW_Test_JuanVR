@@ -43,6 +43,17 @@ public class PlayerWeapons : MonoBehaviour
         #endif
     }
 
+    public void ActivatePowerUp()
+    {
+        timeToShoot = new WaitForSeconds(shootTime/2);
+        Invoke("RemovePowerUp", 3);
+    }
+
+    private void RemovePowerUp()
+    {
+        timeToShoot = new WaitForSeconds(shootTime);
+    }
+
     public void Shoot()
     {
         if(!canShoot) { return; }

@@ -1,7 +1,6 @@
 using DG.Tweening;
 using GameEventSystem;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +30,11 @@ public class LevelManager : MonoBehaviour
     public Transform multiplier3Pos;
     [BoxGroup("SCORE")]
     public Transform multiplier2Pos;
+
+    [BoxGroup("POWER UP")]
+    public PowerUp powerUp;
+    [BoxGroup("POWER UP")]
+    public List<Transform> powerUpSpawnPos;
 
     [HideInInspector]
     public bool blockPlayerMovement = false;
@@ -111,6 +115,7 @@ public class LevelManager : MonoBehaviour
     private void OnLevelCounterEnd(Hashtable _ht)
     {
         blockPlayerMovement = false;   
+        Invoke("SpawnPowerUp", Random.Range(3, 6));
     }
 
     public void OnGameOver(Hashtable _ht)
@@ -152,6 +157,21 @@ public class LevelManager : MonoBehaviour
         
         Trace.Log("Multiplier 1");
         return 1;
+    }
+
+    // * =====================================================================================================================================
+    // * POWER UP
+
+    private void SpawnPowerUp()
+    {
+        int randomPos = Random.Range(0, powerUpSpawnPos.Count);
+        powerUp.transform.position = powerUpSpawnPos[randomPos].transform.position;
+        powerUp.gameObject.SetActive(true);
+    }
+
+    public void SpwnPowerUpDelay()
+    {
+        Invoke("SpawnPowerUp", 3);
     }
 
     // * =====================================================================================================================================
