@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
         lifeContainer.gameObject.SetActive(true);
         pauseButton.gameObject.SetActive(true);
 
-        #if !UNITY_EDITOR
+        #if !UNITY_STANDALONE
         ShowTouchControls();
         #endif
 
